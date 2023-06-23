@@ -13,6 +13,11 @@
         android:theme="@style/Theme.CardiacMonitor"
         tools:targetApi="31">
         <activity
+            android:name=".Records_activity"
+            android:exported="false"
+            android:label="@string/title_activity_records"
+            android:theme="@style/Theme.CardiacMonitor" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
