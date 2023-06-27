@@ -66,5 +66,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public long insertData(String systolic,String diastolic,String pre_stat,String pulse,String pul_stat,String date,String time,String comments)
+    {
+        SQLiteDatabase sqLiteDatabase =  this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(SYSTOLIC,systolic);
+        contentValues.put(DIASTOLIC,diastolic);
+        contentValues.put(PRESURE_STATUS,pre_stat);
+        contentValues.put(PULSE,pulse);
+        contentValues.put(PULSE_STATUS,pul_stat);
+        contentValues.put(DATE,"Date: "+date);
+        contentValues.put(TIME,"Time: "+time);
+        contentValues.put(COMMENTS,"Comments: "+comments);
+
+        return sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+    }
+
+
 }
 
