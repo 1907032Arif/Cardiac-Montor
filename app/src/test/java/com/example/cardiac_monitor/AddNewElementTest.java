@@ -31,6 +31,21 @@ public class AddNewElementTest {
         assertTrue(recordList.getRecords().contains(record2));
 
     }
+    /**
+     * testing addData method for exceptions
+     */
+
+    @Test
+    public void testAddRecordException()
+    {
+
+        Record record1 = new Record("80", "120", "normal", "100", "normal", "29/06/23", "11 am", "Good");
+        RecordList recordList = new RecordList();
+        recordList.addRecords(record1);
+
+        assertThrows(IllegalArgumentException.class, () -> recordList.addRecords(record1));
+
+    }
 
 
 
