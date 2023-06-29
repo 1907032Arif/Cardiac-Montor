@@ -8,12 +8,12 @@
         android:label="Cardiac Recorder App"
         android:roundIcon="@drawable/ic_launcher_background"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CardiacMonitor">
+        android:theme="@style/Theme.Cardiac_Monitor">
         <activity
             android:name=".RecordsActivity"
             android:exported="false"
             android:label="Records"
-            android:theme="@style/Theme.CardiacMonitor"
+            android:theme="@style/Theme.Cardiac_Monitor"
             />
         <activity
             android:name=".SplashActivity"

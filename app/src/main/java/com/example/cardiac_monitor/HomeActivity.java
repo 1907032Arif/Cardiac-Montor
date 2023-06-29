@@ -44,7 +44,7 @@ public class  HomeActivity extends AppCompatActivity {
         SQLiteDatabase sqLiteDatabase =  myDatabaseHelper.getWritableDatabase();
 
 
-        binding.progressCounter.setText("0");
+      //  binding.progressCounter.setText("0");
         binding.status.setText("");
 
 
@@ -166,17 +166,17 @@ public class  HomeActivity extends AppCompatActivity {
                             v=150;
                         }
 
-                        startAnimatedCounter(0,v);
+                        //startAnimatedCounter(0,v);
 
                         if(v>=60 && v<=80)
                         {
                             binding.status.setText("Normal");
-                            YoYo.with(Techniques.Shake).duration(1000).repeat(1).playOn(binding.status);
+                            //YoYo.with(Techniques.Shake).duration(1000).repeat(1).playOn(binding.status);
 
                         }
                         else
                         {
-                            YoYo.with(Techniques.Shake).duration(1000).repeat(1).playOn(binding.status);
+                           // YoYo.with(Techniques.Shake).duration(1000).repeat(1).playOn(binding.status);
                             binding.status.setText("Exceptional");
                         }
 
@@ -214,8 +214,8 @@ public class  HomeActivity extends AppCompatActivity {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                binding.progressCounter.setText(animator.getAnimatedValue().toString()+"");
-                binding.progress.setProgress(Integer.parseInt(animator.getAnimatedValue().toString()));
+               // binding.progressCounter.setText(animator.getAnimatedValue().toString()+"");
+                //binding.progress.setProgress(Integer.parseInt(animator.getAnimatedValue().toString()));
             }
         });
         animator.start();
