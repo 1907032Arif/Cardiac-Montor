@@ -71,10 +71,20 @@ public class AddNewElementTest {
         assertEquals(0, recordList.getRecords().size());
         assertFalse(recordList.getRecords().contains(record2));
 
-
-
     }
 
+
+    @Test
+    public void testDeleteRecordException()
+    {
+        Record record1 = new Record("80", "120", "normal", "100", "normal", "29/06/23", "11 am", "Good");
+        RecordList recordList = new RecordList();
+        recordList.addRecords(record1);
+
+        recordList.delete(record1);
+        assertThrows(IllegalArgumentException.class, ()->recordList.delete(record1));
+
+    }
 
 
 
