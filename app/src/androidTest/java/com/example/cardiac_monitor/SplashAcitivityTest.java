@@ -10,6 +10,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import android.os.SystemClock;
+
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -49,5 +51,17 @@ public class SplashAcitivityTest {
         onView(withId(R.id.textView)).check(matches(withText("Cardiac Recorder App")));
         onView(withId(R.id.editTextTextMultiLine)).check(matches(withText("Developed by                Borhan & Zobayer                CSE 2K19,KUET")));
 
+    }
+
+    @Test
+    public void splashActivityTimeout_navigationToHomeActivity() {
+        ActivityScenario<SplashActivity> activityScenario = ActivityScenario.launch(SplashActivity.class);
+        // Wait for the splash time out
+        long splashTimeout = 10000; // milliseconds
+        SystemClock.sleep(splashTimeout);
+
+        // Check if the HomeActivity is launched
+        onView(withId(R.id.home_layout))
+                .check(matches(isDisplayed()));
     }
 }
