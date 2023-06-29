@@ -40,6 +40,14 @@ public class SplashAcitivityTest {
         onView(withId(R.id.pbProcessing)).check(matches(isDisplayed()));
         //app title ta display krlo kina
         onView(withId(R.id.textView)).check(matches((isDisplayed())));
+    }
+
+    @Test
+    public void test_textmatch()
+    {
+        ActivityScenario<SplashActivity> activityScenario = ActivityScenario.launch(SplashActivity.class);
+        onView(withId(R.id.textView)).check(matches(withText("Cardiac Recorder App")));
+        onView(withId(R.id.editTextTextMultiLine)).check(matches(withText("Developed by                Borhan & Zobayer                CSE 2K19,KUET")));
 
     }
 }
