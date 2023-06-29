@@ -52,6 +52,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     testImplementation 'org.mockito:mockito-core:3.12.4'
+    androidTestImplementation 'org.hamcrest:hamcrest-library:2.2'
+
 
 
 

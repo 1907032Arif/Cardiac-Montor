@@ -207,20 +207,7 @@ public class  HomeActivity extends AppCompatActivity {
 
 
     }
-    public void startAnimatedCounter(int s,int e)
-    {
-        ValueAnimator animator = ValueAnimator.ofInt(s,e);
-        animator.setDuration(2000);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-               // binding.progressCounter.setText(animator.getAnimatedValue().toString()+"");
-                //binding.progress.setProgress(Integer.parseInt(animator.getAnimatedValue().toString()));
-            }
-        });
-        animator.start();
 
-    }
 
 
     @Override
