@@ -1,5 +1,10 @@
 package com.example.cardiac_monitor;
 
+
+/**
+ * The Record class represents a cardiac monitoring record.
+ * It contains information about systolic, diastolic, pressure status, pulse, pulse status, date, time, and comments.
+ */
 public class Record implements Comparable<Record>{
 
     private String systolic;
@@ -12,6 +17,18 @@ public class Record implements Comparable<Record>{
     private String comments;
 
 
+    /**
+     * Constructs a new Record object with the specified data.
+     *
+     * @param systolic        The systolic value.
+     * @param diastolic       The diastolic value.
+     * @param pressure_status The pressure status.
+     * @param pulse           The pulse value.
+     * @param pulse_status    The pulse status.
+     * @param date            The date of the record.
+     * @param time            The time of the record.
+     * @param comments        Additional comments.
+     */
     Record(String systolic, String diastolic, String pressure_status, String pulse, String pulse_status, String date, String time, String comments) {
         this.systolic = systolic;
         this.diastolic = diastolic;

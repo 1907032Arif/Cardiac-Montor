@@ -11,6 +11,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -20,6 +22,7 @@ import static org.hamcrest.Matchers.not;
 
 import androidx.test.rule.ActivityTestRule;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import androidx.test.core.app.ActivityScenario;
@@ -27,47 +30,60 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-// ...
-
-
-
 /**
- * The HomeActivityTest class represents the test cases for the HomeActivity class.
- * It uses Espresso for UI testing.
+ * This class contains Espresso UI tests for the RecordsActivity.
  */
-public class HomeActivityTest {
 
+public class RecordActivityTest {
+    /**
+     * Rule to launch the RecordsActivity for testing.
+     */
     @Rule
-    public ActivityTestRule<HomeActivity> activityRule =
-            new ActivityTestRule<>(HomeActivity.class);
+    public ActivityScenarioRule<RecordsActivity> activityScenarioRule =
+            new ActivityScenarioRule<>(RecordsActivity.class);
 
 
 
     /**
-     * Tests the behavior of clicking the "Add" button.
-     * It checks if the pop-up dialog is displayed.
+     * Test case to verify the update functionality in the RecordsActivity.
+     * It performs the following steps:
+     * 1. Clicks on an item in the list view.
+     * 2. Checks if the pop-up dialog is displayed.
+     * 3. Clicks the "Update" button to open the pop-up dialog.
+     * 4. Verifies if the pop-up dialog is displayed.
+     * 5. Verifies if the required dialog elements are displayed.
+     * 6. Enters data into the textboxes.
+     * 7. Clicks the "Yes" button to add the entry.
      */
     @Test
-    public void clickAddButton_opensPopupDialog() {
-        // Click the "Add" button
-        onView(withId(R.id.add))
+    public void testUpdate() {
+        ActivityScenario<RecordsActivity> activityScenario = activityScenarioRule.getScenario();
+
+        activityScenario.onActivity(activity -> {
+            // Simulate clicking on an item in the list view
+            int itemPosition = 2; // Replace with the desired item position
+            activity.listView.performItemClick(
+                    activity.listView.getAdapter().getView(itemPosition, null, null),
+                    itemPosition,
+                    activity.listView.getAdapter().getItemId(itemPosition)
+            );
+
+
+        });
+
+        // Check if the pop-up dialog is displayed
+        onView(withId(R.id.action_popUp)) // Replace with the actual title of the pop-up dialog
+                .inRoot(isDialog()) // Specify that the view is inside a dialog
+                .check(matches(isDisplayed()));
+
+        // Click the "Update" button
+        onView(withId(R.id.update))
                 .perform(click());
 
         // Check if the pop-up dialog is displayed
         onView(withId(R.id.popUpDialog)) // Replace with the actual title of the pop-up dialog
                 .inRoot(isDialog()) // Specify that the view is inside a dialog
                 .check(matches(isDisplayed()));
-       // onView(withId(R.id.splash)).check(matches(isDisplayed()));
-    }
-
-    /**
-     * Tests if all the elements in the pop-up dialog are displayed.
-     */
-    @Test
-    public void dialogElementsAreDisplayed() {
-        // Click the "Add" button
-        onView(withId(R.id.add))
-                .perform(click());
 
         // Check if the dialog elements are displayed
         onView(withId(R.id.systolic))
@@ -94,17 +110,6 @@ public class HomeActivityTest {
         onView(withId(R.id.no_btn))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
-    }
-
-    /**
-     * Tests the behavior of entering data in the pop-up dialog.
-     * It enters data into the textboxes and clicks the "Yes" button.
-     */
-    @Test
-    public void enterDataInPopupDialog() {
-        // Click the "Add" button
-        onView(withId(R.id.add))
-                .perform(click());
 
         // Enter data into the textboxes
         onView(withId(R.id.systolic))
@@ -131,30 +136,45 @@ public class HomeActivityTest {
                 .inRoot(isDialog())
                 .perform(click());
 
+
+
     }
+
+
 
     /**
-     * Tests the behavior of clicking the "Records" button.
-     * It verifies if the RecordsActivity is launched.
+     * Test case to verify the delete functionality in the RecordsActivity.
+     * It performs the following steps:
+     * 1. Clicks on an item in the list view.
+     * 2. Checks if the pop-up dialog is displayed.
+     * 3. Clicks the "Delete" button to delete the entry.
      */
     @Test
-    public void testRecordsButton() {
-        ActivityScenario<HomeActivity> activityScenarioRule = ActivityScenario.launch(HomeActivity.class);
+    public void testDelete() {
+        ActivityScenario<RecordsActivity> activityScenario = activityScenarioRule.getScenario();
+
+        activityScenario.onActivity(activity -> {
+            // Simulate clicking on an item in the list view
+            int itemPosition = 2; // Replace with the desired item position
+            activity.listView.performItemClick(
+                    activity.listView.getAdapter().getView(itemPosition, null, null),
+                    itemPosition,
+                    activity.listView.getAdapter().getItemId(itemPosition)
+            );
 
 
-        // Perform click action on the "Records" button
-        onView(withId(R.id.records))
+        });
+        // Check if the pop-up dialog is displayed
+        onView(withId(R.id.action_popUp)) // Replace with the actual title of the pop-up dialog
+                .inRoot(isDialog()) // Specify that the view is inside a dialog
+                .check(matches(isDisplayed()));
+
+
+
+        // Click the "Update" button
+        onView(withId(R.id.delete))
                 .perform(click());
 
-        // Verify that the RecordsActivity is launched
-        onView(withId(R.id.records_activity)).check(matches(isDisplayed()));
-
-
-    }
-
-
-
 }
-
-
+}
 
