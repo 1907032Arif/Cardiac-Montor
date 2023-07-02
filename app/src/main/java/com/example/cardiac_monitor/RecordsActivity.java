@@ -22,6 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * The RecordsActivity class is responsible for managing the activity that displays records from a database.
+ */
 public class RecordsActivity extends AppCompatActivity {
 
     MyDatabaseHelper myDatabaseHelper;
@@ -35,25 +38,31 @@ public class RecordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
 
+       //Enable the back button to navigate up within the application.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // Display the icon in the action bar.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //// Initialize the database helper class for managing the SQLite database.
         myDatabaseHelper = new MyDatabaseHelper(RecordsActivity.this);
+        // Get a writable database.
         SQLiteDatabase sqLiteDatabase =  myDatabaseHelper.getWritableDatabase();
 
         listView = findViewById(R.id.list_view);
         no_text = findViewById(R.id.no_text);
 
+        // Load data from the database and populate the list view.
         loadData();
 
+        //handles item clicks
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                //a Cursor is obtained from the simpleCursorAdapter using the clicked item position i.
                 Cursor cursor = (Cursor) simpleCursorAdapter.getItem(i);
+                //get first column of the Cursor in the id.
                 String _id = cursor.getString(0);
-
-                // Toast.makeText(RecordsActivity.this,"id: "+_id,Toast.LENGTH_SHORT).show();
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(RecordsActivity.this);
@@ -65,8 +74,10 @@ public class RecordsActivity extends AppCompatActivity {
                 update = view2.findViewById(R.id.update);
                 delete = view2.findViewById(R.id.delete);
 
+                //The custom view view2 is set as the view for the AlertDialog.Builder.
                 builder.setView(view2);
                 AlertDialog alertDialog = builder.create();
+                // prevent the dialog from being dismissed when touched outside of it.
                 alertDialog.setCanceledOnTouchOutside(false);
 
                 update.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +161,7 @@ public class RecordsActivity extends AppCompatActivity {
                                     pressure_status += "low";
                                 }
 
-
+                                //update a record in the database
                                 boolean id = myDatabaseHelper.updateData(_id, sys_v, dias_v, pressure_status, pulse_v, pulse_status, date_v, time_v, comments_v);
 
 
@@ -211,19 +222,24 @@ public class RecordsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Load data from the database and populate the list view.
+     */
     public void loadData()
     {
+        //obtain a SimpleCursorAdapter for populating the listView with data from the database.
         simpleCursorAdapter = myDatabaseHelper.populateListViewFromDB();
         listView.setAdapter(simpleCursorAdapter);
 
-        // Toast.makeText(RecordsActivity.this,"::"+listView.getCount(),Toast.LENGTH_SHORT).show();
 
+        //If the listView contains less than 1 item (no records), the "No Records" message is displayed in the no_text view, and the listView is hidden (setVisibility(View.GONE)).
         if(listView.getCount()<1)
         {
             no_text.setText("No Records");
             no_text.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         }
+        //If the listView contains at least 1 item, the "No Records" message is hidden, and the listView is displayed (setVisibility(View.VISIBLE)).
         else
         {
             no_text.setVisibility(View.GONE);
