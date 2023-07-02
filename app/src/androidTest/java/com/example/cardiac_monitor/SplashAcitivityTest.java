@@ -19,18 +19,30 @@ import androidx.test.filters.LargeTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
+/**
+ * This class contains instrumented tests for the SplashActivity.
+ */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 
 
 public class SplashAcitivityTest {
 
+    /**
+     * Test case to verify if the SplashActivity is displayed.
+     * It launches the SplashActivity and checks if the splash screen is displayed.
+     */
     @Test
     public void test_isActivityInView() {
         ActivityScenario<SplashActivity> activityScenario = ActivityScenario.launch(SplashActivity.class);
         onView(withId(R.id.splash)).check(matches(isDisplayed()));
     }
 
+    /**
+     * Test case to verify if the necessary UI elements are displayed in the SplashActivity.
+     * It launches the SplashActivity and checks if the logo image, developer text, progress bar, and app title are displayed.
+     */
     @Test
     public void test_isText_Progress_inView() {
         ActivityScenario<SplashActivity> activityScenario = ActivityScenario.launch(SplashActivity.class);
@@ -44,6 +56,10 @@ public class SplashAcitivityTest {
         onView(withId(R.id.textView)).check(matches((isDisplayed())));
     }
 
+    /**
+     * Test case to verify if the text of specific UI elements matches the expected text.
+     * It launches the SplashActivity and checks if the text of the app title and developer text matches the expected values.
+     */
     @Test
     public void test_textmatch()
     {
@@ -53,6 +69,10 @@ public class SplashAcitivityTest {
 
     }
 
+    /**
+     * Test case to verify if the SplashActivity automatically navigates to the HomeActivity after a certain timeout.
+     * It launches the SplashActivity, waits for the specified splash timeout, and checks if the HomeActivity is displayed.
+     */
     @Test
     public void splashActivityTimeout_navigationToHomeActivity() {
         ActivityScenario<SplashActivity> activityScenario = ActivityScenario.launch(SplashActivity.class);

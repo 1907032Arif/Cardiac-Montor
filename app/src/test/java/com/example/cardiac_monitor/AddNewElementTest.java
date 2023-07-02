@@ -12,8 +12,16 @@ import com.example.cardiac_monitor.RecordList;
 
 
 
+/**
+ * This class contains unit tests for adding and deleting records in the RecordList.
+ */
 public class AddNewElementTest {
 
+    /**
+     * Test case to verify the addition of records to the RecordList.
+     * It creates two records and adds them to the RecordList.
+     * Then it checks if the RecordList contains the added records.
+     */
     @Test
     public void testAddData()
     {
@@ -31,10 +39,12 @@ public class AddNewElementTest {
         assertTrue(recordList.getRecords().contains(record2));
 
     }
-    /**
-     * testing addData method for exceptions
-     */
 
+    /**
+     * Test case to verify the exception thrown when adding an existing record to the RecordList.
+     * It adds a record to the RecordList and attempts to add the same record again.
+     * It expects an IllegalArgumentException to be thrown.
+     */
     @Test
     public void testAddRecordException()
     {
@@ -47,6 +57,10 @@ public class AddNewElementTest {
 
     }
 
+    /**
+     * Test case to verify the deletion of records from the RecordList.
+     * It adds two records to the RecordList, deletes them one by one, and checks the size and content of the RecordList.
+     */
     @Test
     public  void testDeleteData()
     {
@@ -74,6 +88,11 @@ public class AddNewElementTest {
     }
 
 
+    /**
+     * Test case to verify the exception thrown when deleting a non-existing record from the RecordList.
+     * It adds a record to the RecordList, deletes it, and attempts to delete it again.
+     * It expects an IllegalArgumentException to be thrown.
+     */
     @Test
     public void testDeleteRecordException()
     {

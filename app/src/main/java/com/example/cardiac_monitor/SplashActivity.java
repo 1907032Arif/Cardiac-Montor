@@ -6,8 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+/**
+ * This activity is displayed as a splash screen when the app is launched.
+ * It shows a splash screen for a certain duration and then navigates to the HomeActivity.
+ */
 public class SplashActivity extends AppCompatActivity {
 
+    /**
+     * Called when the activity is starting. Sets the content view and initiates the splash screen timeout.
+     *
+     * @param savedInstanceState The saved instance state Bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
