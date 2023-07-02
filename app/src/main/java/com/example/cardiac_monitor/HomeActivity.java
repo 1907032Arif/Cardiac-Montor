@@ -23,36 +23,57 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * The HomeActivity class represents the main activity of the Cardiac Monitor application.
+ * It allows users to add records of blood pressure and pulse rate readings.
+ */
 
 public class  HomeActivity extends AppCompatActivity {
 
 
+    //It is an auto-generated class that represents the layout file activity_home.xml.
     ActivityHomeBinding binding;
+    //class to managing the SQLite database in the application.
     MyDatabaseHelper myDatabaseHelper;
 
+    /**
+     * Called when the activity is created. Initializes the activity and sets up the user interface.
+     *
+     * @param savedInstanceState The saved state of the activity, if available.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //inflate() method is used to create the user interface of the HomeActivity by inflating the XML layout file activity_home.xml
+        //binding variable for inflating the activity_home.xml layout using the inflate() method.
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
 
+        // root view represents the top-level view of the inflated layout.
         View view = binding.getRoot();
+        //enables back button to navigate up within the application.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //display icon in the action bar.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //sets content view of the activity to the view
         setContentView(view);
+        //nitializes the database helper class for managing the SQLite database.
         myDatabaseHelper = new MyDatabaseHelper(HomeActivity.this);
+        //Initialises a writable database
         SQLiteDatabase sqLiteDatabase =  myDatabaseHelper.getWritableDatabase();
 
 
-      //  binding.progressCounter.setText("0");
+
+        // set an empty text value to the status TextView
         binding.status.setText("");
 
 
         binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //construct an AlertDialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-
+                //inflates popup_dialog layout
                 View view2 = getLayoutInflater().inflate(R.layout.popup_dialog,null);
 
                 EditText sys = view2.findViewById(R.id.systolic);
@@ -75,6 +96,7 @@ public class  HomeActivity extends AppCompatActivity {
                 String time_v = simpleDateFormat.format(calendar.getTime());
                 time.setText(time_v);
 
+                //sets the inflated view2 as the custom view for the AlertDialog.Builder
                 builder.setView(view2);
 
                 AlertDialog alertDialog = builder.create();
@@ -143,7 +165,7 @@ public class  HomeActivity extends AppCompatActivity {
                             pressure_status+="low";
                         }
 
-
+                        //Inserts data into database.
                         long id =  myDatabaseHelper.insertData(sys_v,dias_v,pressure_status,pulse_v,pulse_status,date_v,time_v,comments_v);
 
 
@@ -166,17 +188,14 @@ public class  HomeActivity extends AppCompatActivity {
                             v=150;
                         }
 
-                        //startAnimatedCounter(0,v);
 
                         if(v>=60 && v<=80)
                         {
                             binding.status.setText("Normal");
-                            //YoYo.with(Techniques.Shake).duration(1000).repeat(1).playOn(binding.status);
 
                         }
                         else
                         {
-                           // YoYo.with(Techniques.Shake).duration(1000).repeat(1).playOn(binding.status);
                             binding.status.setText("Exceptional");
                         }
 
@@ -187,7 +206,6 @@ public class  HomeActivity extends AppCompatActivity {
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Toast.makeText(getActivity(),"no",Toast.LENGTH_SHORT).show();
                         alertDialog.dismiss();
                     }
                 });
@@ -210,12 +228,21 @@ public class  HomeActivity extends AppCompatActivity {
 
 
 
+    /**
+     * Called when the activity is destroyed. Performs cleanup tasks.
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         binding = null;
     }
 
+    /**
+     * Handles the selection of options in the action bar.
+     *
+     * @param item The selected menu item.
+     * @return True if the menu item is handled, false otherwise.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -226,6 +253,10 @@ public class  HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Handles the back button press. Displays a confirmation dialog before exiting the activity.
+     */
     @Override
     public void onBackPressed() {
         new android.app.AlertDialog.Builder(this)
